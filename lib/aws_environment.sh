@@ -6,6 +6,7 @@ echo $2
 export AWS_ACCESS_KEY_ID=$(echo $2 | jq -r .Records[0].awsKeys.AWS_ACCESS_KEY_ID)
 export AWS_SECRET_ACCESS_KEY=$(echo $2 | jq -r .Records[0].awsKeys.AWS_SECRET_ACCESS_KEY)
 export AWS_SESSION_TOKEN=$(echo $credentials | jq -r .Records[0].awsKeys.AWS_SESSION_TOKEN)
+export _HANDLER=$(echo $1)
 echo ${AWS_ACCESS_KEY_ID}
 
 /var/lang/bin/python3.9 /var/runtime/bootstrap.py $1 $2
