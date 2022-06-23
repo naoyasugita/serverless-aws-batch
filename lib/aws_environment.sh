@@ -22,4 +22,4 @@ export AWS_SESSION_TOKEN=$(echo $credentials | jq -r .Token)
 echo ${AWS_ACCESS_KEY_ID}
 echo "$(</var/runtime/bootstrap.py)"
 
-/var/lang/bin/python3.9 /var/runtime/bootstrap.py $1 $2
+/var/lang/bin/python3.6 /var/runtime/bootstrap.py $1 $2
