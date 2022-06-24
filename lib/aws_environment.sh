@@ -20,6 +20,5 @@ export AWS_SESSION_TOKEN=$(echo $credentials | jq -r .Token)
 #export AWS_LAMBDA_INITIALIZATION_TYPE=$(echo $credentials | jq -r .Records[0].awsKeys.AWS_LAMBDA_INITIALIZATION_TYPE)
 #export LAMBDA_TASK_ROOT=$(echo $credentials | jq -r .Records[0].awsKeys.LAMBDA_TASK_ROOT)
 echo ${AWS_ACCESS_KEY_ID}
-echo "$(</var/runtime/bootstrap.py)"
 
 /var/lang/bin/python3.6 /var/runtime/awslambda/bootstrap.py $1 $2
