@@ -1,10 +1,10 @@
 # Serverless Batch
 [![serverless](http://public.serverless.com/badges/v3.svg)](http://www.serverless.com)
 
-A Serverless v1.x plugin that makes creating and running AWS Batch tasks as easy as creating a Serverless Lambda Function.
+A Serverless v3.x plugin that makes creating and running AWS Batch tasks as easy as creating a Serverless Lambda Function.
 
 Tested with:
-* Serverless >= v1.43
+* Serverless >= v3.0
 * Python 3.7
 * Node.JS 10
 
@@ -106,10 +106,10 @@ functions:
 
 ## Implementation
 
-What happens behind the scenes is that the Serverless Framework's ".zip" artifact gets installed into a 
+What happens behind the scenes is that the Serverless Framework's ".zip" artifact gets installed into a
 [lambci/lambda:\<env>](https://hub.docker.com/r/lambci/lambda/) docker image and uploaded to [ECR](https://aws.amazon.com/ecr/).
 
-* _Note: Currently using copy of the docker images (https://cloud.docker.com/u/justinram11/repository/list) that unsets the 
+* _Note: Currently using copy of the docker images (https://cloud.docker.com/u/justinram11/repository/list) that unsets the
 ACCESS_KEY_ID and SECRET_ACCESS_KEY environmental variables so that we can use the role attached to the EC2 instance._
 
 A "schedule" lambda function is then created with the same name as the regular Serverless Framework's lambda function
@@ -146,11 +146,13 @@ provider:
     MinvCpus: 0
     MaxvCpus: 2
   # Allows the Batch Job (code written in handler.py) to list all of our S3 Buckets.
-  iamRoleStatements:
-    - Effect: "Allow"
-      Action:
-        - "s3:ListAllMyBuckets"
-      Resource: "*"
+  iam:
+    role:
+      statements:
+        - Effect: "Allow"
+          Action:
+            - "s3:ListAllMyBuckets"
+          Resource: "*"
 
 plugins:
   - serverless-python-requirements
